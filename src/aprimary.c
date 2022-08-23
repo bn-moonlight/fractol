@@ -24,20 +24,25 @@ t_fractol	*frctl_init(int argc, char **argv)
 		free_kill_all(frctl);
 	frctl->mlx = NULL;
 	frctl->color_shift = 0;
-	set_pov(frctl);
-	which_func(argc, argv, frctl);
-	return (frctl);
+	set_pov(frctl);//goruntudeki iteration sayisinin birbirini izlemesini sagladik. renk degisimlerini rastgele olmasini sagladik.renk secimlerinin(color_shift) rasgele olmasini sagladik.
+    which_func(argc, argv, frctl);// hangi  haritayi  kullanacagimizi gosterdik (julia, mandelbrot...)
+	return (frctl);// artik icerisi doldurulmus frctl geri donduruldu
+    
 }
 
-int	set_pov(t_fractol *frctl)
+int	set_pov(t_fractol *frctl)// goruntunun orantili olmasini sagladik. buyudukce bozulmamasini sagladik.
 {
 	frctl->max_iter = 25;
 	frctl->is_fixed = true;
 	if (SIZE_X == SIZE_Y)
 	{
 		complex_set(&frctl->c_max, 2, 2);
+        // 2. paramtre -> kuculdukce x genisler.
+        // 3. paramtrre -> yukari asagi hareket ettirir.(buyutunce asagi, kuculttukce yukari cikar.)
 		complex_set(&frctl->c_min, -2, -2);
-	}
+        // 2. parametre -> yukari asagi kaydirir.
+        // 3. parametre -> sag-sol kaydirir.
+    }
 	else
 	{
 		complex_set(&frctl->c_min, -2, -2);
@@ -45,9 +50,11 @@ int	set_pov(t_fractol *frctl)
 		frctl->c_min.re = (SIZE_X / SIZE_Y
 				* (frctl->c_max.im - frctl->c_min.im)
 				+ frctl->c_min.re);
+        // bunu coz? neden c_minde yapmadik da c_maxda yaptik?
+        // buraya hesaplayip da sabit sayi vermememizin sebebi, buyuttukce bu degeri tekrar tekrar hesaplamasi ve oranin bozulmamasidir.
 	}
 	complex_set(&frctl->c_julia, -0.6, 0.6);
-	set_color_array(frctl);
+	set_color_array(frctl);// goruntunun max_iter'e kadar renk almasini sagladik.
 	return (0);
 }
 
@@ -56,7 +63,7 @@ void	which_func(int argc, char **argv, t_fractol *frctl)
 	frctl->fractal_func = NULL;
 	if ((argc == 2 || argc == 4) && !ft_strncmp(argv[1], "julia", 6))
 	{
-		frctl->fractal_func = julia;
+		frctl->fractal_func = julia; // bu  hareketi yapar tum struct yapilarimin julaya gore calismasini sagliyorum
 		if (argc == 4)
 		{
 			frctl->c_julia.re = ft_atoi(argv[2]);

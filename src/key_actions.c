@@ -6,7 +6,7 @@
 /*   By: sakkaya <sakkaya@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 21:37:10 by sakkaya           #+#    #+#             */
-/*   Updated: 2022/08/22 21:43:33 by sakkaya          ###   ########.fr       */
+/*   Updated: 2022/08/23 12:57:09 by sakkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	key_actions(int key, t_fractol *frctl)
 	return (0);
 }
 
-void	move(int key, t_fractol *frctl)
+void	move(int key, t_fractol *frctl) // tum haritada kaaydirma yapiyorsun
 {
 	t_complex	c_size;
 
-	c_size.re = frctl->c_max.re - frctl->c_min.re;
-	c_size.im = frctl->c_max.im - frctl->c_min.im;
+	c_size.re = frctl->c_max.re - frctl->c_min.re; // 
+	c_size.im = frctl->c_max.im - frctl->c_min.im; // 
 	if (key == ARROW_UP)
 	{
 		frctl->c_min.im += c_size.im * 0.05;
